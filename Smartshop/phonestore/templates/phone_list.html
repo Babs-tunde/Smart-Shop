@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+{% for phone in phones %}
+    <h2>{{ phone.name }}</h2>
+    <p>{{ phone.description }}</p>
+    <p>Price: ${{ phone.price }}</p>
+    <p>Stock: {{ phone.stock }}</p>
+{% endfor %}
+
+</div>
+{% endblock %}

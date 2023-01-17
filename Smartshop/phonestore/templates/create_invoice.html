@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+<form method="post">
+    {% csrf_token %}
+    <label for="customer_name">Customer Name:</label>
+    <input type="text" id="customer_name" name="customer_name">
+    <br>
+    <label for="customer_address">Customer Address:</label>
+    <textarea id="customer_address" name="customer_address"></textarea>
+    <br>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date">
+    <br>
+    <label for="phone">Phone:</label>
+    <select id="phone" name="phone">
+      {% for phone in phones %}
+        <option value="{{ phone.id }}">{{ phone.name }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity">
+    <br>
+    <input type="submit" value="Create Invoice">
+  </form>
+</div>
+  {% endblock %}

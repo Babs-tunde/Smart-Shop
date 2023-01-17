@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<script>
+    function refreshStock() {
+      $.ajax({
+        type: "GET",
+        url: "{% url 'stock_data' %}",
+        dataType: "json",
+        success: function(data) {
+          $("#stock-data").html("");
+          for (var i = 0; i < data.length; i++) {
+            $("#stock-data").append("<li>" + data[i].name + ": " + data[i].stock + "</li>");
+          }
+        }
+      });
+    }
+    setInterval(refreshStock, 10000); // refresh stock every 10 seconds
+  </script>
+
+  <div>
+  <h1>Phone Shop</h1>
+  <h2>In Stock:</h2>
+  <ul id="stock-data">
+    {% for phone in phones %}
+      <li>{{ phone.name }}: {{ phone.stock }}</li>
+    {% endfor %}
+  </ul>
+</div>
+  {% endblock %}
