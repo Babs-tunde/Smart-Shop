@@ -4,6 +4,14 @@
 
 
 <div>
+  <div>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="date" name="date" placeholder="Search by date " >
+       
+        <input type="submit" value="Search">
+    </form>
+</div>
     <h1>Invoices</h1>
     <table>
       <tr>

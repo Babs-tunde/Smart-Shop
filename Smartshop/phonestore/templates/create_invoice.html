@@ -3,7 +3,7 @@
 
 {% block content %}
 <div>
-<!-- <form method="post">
+<form method="post">
     {% csrf_token %}
     <label for="customer_name">Customer Name:</label>
     <input type="text" id="customer_name" name="customer_name">
@@ -25,10 +25,9 @@
     <input type="number" id="quantity" name="quantity">
     <br>
     <input type="submit" value="Create Invoice">
-  </form> -->
+  </form>
 
-  <!-- create_invoice.html -->
-<form method="post">
+<!-- <form method="post">
   {% csrf_token %}
   <h2>Invoice</h2>
   <label for="customer_name">Customer Name:</label>
@@ -55,19 +54,20 @@
         </select>
       </td>
       <td><input type="number" name="quantity"></td>
-      <td>${{ phone.price }}</td>
+      <td>#{{ phone.price }}</td>
     </tr>
     <tr>
       <td colspan="2"><button type="button" onclick="addPhone()">Add Phone</button></td>
-      <td>Total: ${{ total_amount }}</td>
+      <td>Total: #{{ total_amount }}</td>
     </tr>
+    
   </table>
   <input type="submit" value="Create Invoice">
 </form>
 </div>
 
 
-Copy code
+
 <script>
   function addPhone() {
     var table = document.getElementById("phone-table");
@@ -96,5 +96,5 @@ Copy code
     cell2.appendChild(quantity);
     cell3.appendChild(price);
   }
-</script>
+</script> -->
   {% endblock %}

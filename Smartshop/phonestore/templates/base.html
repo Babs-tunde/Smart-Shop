@@ -3,59 +3,9 @@
 <html>
 <head>
   <title>Phone Shop</title>
-  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 </head>
-<script>
-  .body {
-    margin: 5;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Header styling */
-  .header {
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 1em;
-  }
-  
-  /* Sidebar styling */
-  .sidebar {
-    float: left;
-    width: 20%;
-    background-color: #f1f1f1;
-    padding: 1em;
-  }
-  
-  .sidebar h2 {
-    margin-top: 0;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar a {
-    text-decoration: none;
-    color: black;
-  }
-  
-  /* Main content styling */
-  .main-content {
-    margin-left: 20%; /* Same as sidebar width */
-    padding: 1em;
-  }
-  
-  /* Footer styling */
-  .footer {
-    clear: both;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 1em;
-  }
-</script>
+
 <body>
   <div class="header">
     <h1>Phone Shop</h1>
@@ -66,6 +16,7 @@
       <li><a href="{% url 'home' %}">Home</a></li>
       <li><a href="{% url 'create_invoice' %}">Create Invoice</a></li>
       <li><a href="{% url 'invoice_list' %}">Invoices</a></li>
+      <li><a href="{% url 'phone_list' %}">Items in store</a></li>
       <li><a href="{% url 'stock_data' %}">Stock Data</a></li>
     </ul>
   </div>
@@ -73,7 +24,7 @@
     {% block content %}{% endblock %}
   </div>
   <div class="footer">
-    <p>Copyright © Phone Shop</p>
+    <p>Copyright © Phone Shop </p>
   </div>
 </body>
 </html>
