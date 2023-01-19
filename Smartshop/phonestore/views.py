@@ -1,18 +1,25 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Phone, Invoice
 from django.http import JsonResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required
 def home(request):
     phones = Phone.objects.all()
     return render(request, 'home.html',{'phones': phones})
 
+@login_required
 def phone_list(request):
     phones = Phone.objects.all()
     return render(request, 'phone_list.html', {'phones': phones})
 
+@login_required
 def create_invoice(request):
     if request.method == 'POST':
         phone = Phone.objects.get(id=request.POST['phone'])
@@ -53,7 +60,7 @@ def create_invoice(request):
 # def invoice_list(request):
 #     invoices = Invoice.objects.all()
 #     return render(request, 'invoice_list.html', {'invoices': invoices})
-
+@login_required
 def invoice_list(request):
     if request.method == 'POST':
         date = request.POST["date"]
@@ -77,3 +84,33 @@ def invoice_list(request):
 def stock_data(request):
     phones = Phone.objects.values('name', 'stock')
     return JsonResponse(list(phones), safe=False)
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            error_message = 'There was an error with your submission.please check the form for errors and try again.'
+    return render(request, 'login.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+
+@login_required
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(reverse_lazy('login'))
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
