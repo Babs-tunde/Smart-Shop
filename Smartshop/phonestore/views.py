@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Phone, Invoice
 from django.http import JsonResponse
 
@@ -61,6 +62,15 @@ def invoice_list(request):
         invoices = Invoice.objects.all()
     for invoice in invoices:
         invoice.price = invoice.quantity * invoice.phone.price
+
+    paginator = Paginator(invoices, 10)  
+    page = request.GET.get('page')
+    try:
+        invoices = paginator.page(page)
+    except PageNotAnInteger: 
+        invoices = paginator.page(1)
+    except EmptyPage:
+        invoices = paginator.page(paginator.num_pages)
     return render(request, 'invoice_list.html', {'invoices': invoices})
 
 
